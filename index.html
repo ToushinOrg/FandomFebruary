@@ -264,6 +264,13 @@
   .exec(async () => await colorchange("transparent", "white"))
   .pause(1000)
 
+  .type(`"Exploring the Moral Compass of <i>(insert character here)</i>"`, { delay: 2000 })
+  .exec(async () => await colorchange("#0865D3", "white"))
+  .pause(500)
+  .empty()
+  .exec(async () => await colorchange("transparent", "white"))
+  .pause(1000)
+
   .type(`"Are Gacha Games Considered Gambling?"`, { delay: 2000 })
   .exec(async () => await colorchange("#0865D3", "white"))
   .pause(500)
