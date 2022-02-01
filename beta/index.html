@@ -32,7 +32,7 @@
                         <li class="nav-item"><a class="nav-link me-lg-3" href="#features">Features</a></li>
                         <li class="nav-item"><a class="nav-link me-lg-3" href="#download">Download</a></li>
                     </ul>
-                    <button class="btn btn-primary px-3 mb-2 mb-lg-0 not-rounded" onclick=" window.open('https://forms.gle/BYRDj9uxyuw9pJm59','_blank')" type="button">
+                    <button class="btn btn-primary px-3 mb-2 mb-lg-0 not-rounded" data-bs-toggle="modal" data-bs-target="#feedbackModal">
                         <span class="d-flex align-items-center">
                             <span class="small">REGISTER NOW</span>
                         </span>
@@ -49,12 +49,17 @@
                         <div class="mb-5 mb-lg-0 text-center text-lg-start">
                             <h1 class="display-1 lh-1 mb-3">This is FANDOM FEBRUARY.</h1>
                             <p class="lead fw-normal mb-5">A series of weekly open talks & workshops about Japanese pop culture.</p>
-                            <a class="btn btn-outline-light py-3 px-4 not-rounded" href="https://forms.gle/BYRDj9uxyuw9pJm59" target="_blank">REGISTER NOW</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <!-- Masthead device mockup feature-->
-                        <img src="assets/img/hero-img.png" width="100%"></img>
+                        <div class="masthead-device-mockup">
+                            <div class="device-wrapper">
+                                <div class="device">
+                                    <img></img>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -72,76 +77,68 @@
         </aside>
         <!-- App features section-->
         <section id="features">
-            <div class="container px-5">
-                <div class="row gx-5 align-items-center">
-                    <div class="col-lg-8 order-lg-1 mb-5 mb-lg-0">
-                        <div class="container-fluid px-5">
-                            <div class="row gx-5">
-                                <div class="col-md-6 mb-5">
-                                    <!-- Feature item-->
-                                    <div class="text-center">
-                                        <i class="bi-phone icon-feature text-gradient d-block mb-3"></i>
-                                        <h3 class="font-alt">Device Mockups</h3>
-                                        <p class="text-muted mb-0">Ready to use HTML/CSS device mockups, no Photoshop required!</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-5">
-                                    <!-- Feature item-->
-                                    <div class="text-center">
-                                        <i class="bi-camera icon-feature text-gradient d-block mb-3"></i>
-                                        <h3 class="font-alt">Flexible Use</h3>
-                                        <p class="text-muted mb-0">Put an image, video, animation, or anything else in the screen!</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-5 mb-md-0">
-                                    <!-- Feature item-->
-                                    <div class="text-center">
-                                        <i class="bi-gift icon-feature text-gradient d-block mb-3"></i>
-                                        <h3 class="font-alt">Free to Use</h3>
-                                        <p class="text-muted mb-0">As always, this theme is free to download and use for any purpose!</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <!-- Feature item-->
-                                    <div class="text-center">
-                                        <i class="bi-patch-check icon-feature text-gradient d-block mb-3"></i>
-                                        <h3 class="font-alt">Open Source</h3>
-                                        <p class="text-muted mb-0">Since this theme is MIT licensed, you can use it commercially!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 order-lg-0">
-                        <!-- Features section device mockup-->
-                        <div class="features-device-mockup">
-                            <svg class="circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                                <defs>
-                                    <linearGradient id="circleGradient" gradientTransform="rotate(45)">
-                                        <stop class="gradient-start-color" offset="0%"></stop>
-                                        <stop class="gradient-end-color" offset="100%"></stop>
-                                    </linearGradient>
-                                </defs>
-                                <circle cx="50" cy="50" r="50"></circle></svg
-                            ><svg class="shape-1 d-none d-sm-block" viewBox="0 0 240.83 240.83" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(120.42 -49.88) rotate(45)"></rect>
-                                <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(-49.88 120.42) rotate(-45)"></rect></svg
-                            ><svg class="shape-2 d-none d-sm-block" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"></circle></svg>
-                            <div class="device-wrapper">
-                                <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black">
-                                    <div class="screen bg-black">
-                                        <!-- PUT CONTENTS HERE:-->
-                                        <!-- * * This can be a video, image, or just about anything else.-->
-                                        <!-- * * Set the max width of your media to 100% and the height to-->
-                                        <!-- * * 100% like the demo example below.-->
-                                        <video muted="muted" autoplay="" loop="" style="max-width: 100%; height: 100%"><source src="assets/img/demo-screen.mp4" type="video/mp4" /></video>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="text-center">
+                <h3 class="font-alt">How the Anime Community Has Changed</h3>
+                <div class="text-center">
+                    <h5 class="font-alt">Jay Agonoy</h5>
+                    <p class="text-muted mb-0">Anime Corner</p>
+                    <br>
+                </div>
+            </div>
+            <div class="text-center">
+                <h3 class="font-alt">The Wonderful Art of Josei Manga</h3>
+                <div class="text-center">
+                    <h5 class="font-alt">Migzu</h5>
+                    <p class="text-muted mb-0">Independent</p>
+                    <br>
+                </div>
+            </div>
+            <div class="text-center">
+                <h3 class="font-alt">Fansubbing 101: History and Guide to a Lost Art</h3>
+                <div class="text-center">
+                    <h5 class="font-alt">Madekuji Masamune</h5>
+                    <p class="text-muted mb-0">HLR Subs</p>
+                    <br>
+                </div>
+            </div>
+            <div class="text-center">
+                <h3 class="font-alt">Fandom in Japan: From Otaku to Fujoshi</h3>
+                <div class="text-center">
+                    <h5 class="font-alt">Khursten Santos</h5>
+                    <p class="text-muted mb-0">Ateneo Japanese Studies Program</p>
+                    <br>
+                </div>
+            </div>
+            <div class="text-center">
+                <h3 class="font-alt">Can't seem to use Live2D? Try AnimeEffects! : A Workshop by a No-Budget Artist</h3>
+                <div class="text-center">
+                    <h5 class="font-alt">Cliesel</h5>
+                    <p class="text-muted mb-0">Independent</p>
+                    <br>
+                </div>
+            </div>
+            <div class="text-center">
+                <h3 class="font-alt">The History of Rhythm Games</h3>
+                <div class="text-center">
+                    <h5 class="font-alt">Yanna Chanco</h5>
+                    <p class="text-muted mb-0">Ateneo Senior High School</p>
+                    <br>
+                </div>
+            </div>
+            <div class="text-center">
+                <h3 class="font-alt">Sis RPG - The Insane JRPG Series that Got the World Screaming through Default Game Assets</h3>
+                <div class="text-center">
+                    <h5 class="font-alt">ChairGTables</h5>
+                    <p class="text-muted mb-0">LAME Dimension</p>
+                    <br>
+                </div>
+            </div>
+            <div class="text-center">
+                <h3 class="font-alt">Analyzing Comedy with Anime and Manga's Best</h3>
+                <div class="text-center">
+                    <h5 class="font-alt">Ivan Sison</h5>
+                    <p class="text-muted mb-0">Ateneo de Manila University</p>
+                    <br>
                 </div>
             </div>
         </section>
@@ -164,11 +161,11 @@
             <div class="cta-content">
                 <div class="container px-5">
                     <h2 class="text-white display-1 lh-1 mb-4">
-                        For the fandom.
+                        Stop waiting.
                         <br />
-                        By the fandom.
+                        Start building.
                     </h2>
-                    <a class="btn btn-outline-light py-3 px-4 not-rounded" href="https://forms.gle/BYRDj9uxyuw9pJm59" target="_blank">REGISTER NOW</a>
+                    <a class="btn btn-outline-light py-3 px-4 not-rounded" href="https://startbootstrap.com/theme/new-age" target="_blank">Download for free</a>
                 </div>
             </div>
         </section>
