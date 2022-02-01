@@ -76,6 +76,10 @@
   }
 }
 
+.bold-text{
+  font-weight: 700 !important;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -492,6 +496,8 @@ progress {
   font-size: 1.25rem;
   font-weight: 300;
 }
+
+
 
 .display-1 {
   font-size: calc(1.625rem + 4.5vw);
