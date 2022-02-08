@@ -47,8 +47,151 @@
         <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://apis.google.com/js/api.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.7/jstz.js"></script>
+        <script>
+            /**
+             * Sample JavaScript code for calendar.events.list
+             * See instructions for running APIs Explorer code samples locally:
+             * https://developers.google.com/explorer-help/guides/code_samples#javascript
+             */
+    
+            function authenticate() {
+                return gapi.auth2.getAuthInstance()
+                    .signIn({scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.readonly"})
+                    .then(function() { console.log("Sign-in successful"); },
+                        function(err) { console.error("Error signing in", err); });
+            }
+            function loadClient() {
+                gapi.client.setApiKey("AIzaSyBksgOjK2CvXDILR95XE0oACqYtEd4ME4s");
+                return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest")
+                    .then(function() { console.log("GAPI client loaded for API"); },
+                        function(err) { console.error("Error loading GAPI client for API", err); });
+            }
+            // Make sure the client is loaded and sign-in is complete before calling this method.
+            gapi.load("client:auth2", function() {
+                gapi.auth2.init({client_id: "127597952288-shoj21r78nmfmju93c51a6ed3brd30se.apps.googleusercontent.com"});
+            });
+            function execute() {
+                    return gapi.client.calendar.events.list({
+                    "calendarId": "upa7t9tsfg64r1psm1tvmbc7hc@group.calendar.google.com",
+                    "orderBy": "startTime",
+                    "singleEvents": true
+                    })
+                        .then(function(response) {
+                                // Handle the results here (response.result has the parsed body).
+                                console.log("Response", response);
+                                var eventInt = 0;
+                                var eventName = response.result.items[0].summary;
+                                var eventDesc = response.result.items[0].description;
+                                var eventStartTime = response.result.items[0].start.dateTime;
+                                var eventEndTime = response.result.items[0].end.dateTime;
+                                // Set the date we're counting down to
+                                var eventStartDate = new Date(eventStartTime).getTime();
+                                var eventEndDate = new Date(eventEndTime).getTime();
+                                var now = new Date().getTime();
+                                var eventEndDistance = eventEndDate - now;
+                                while(eventEndDistance < 0){
+                                    eventInt += 1;
+                                    eventName = response.result.items[eventInt].summary;
+                                    eventDesc = response.result.items[eventInt].description;
+                                    eventStartTime = response.result.items[eventInt].start.dateTime;
+                                    eventEndTime = response.result.items[eventInt].end.dateTime;
+                                    // Set the date we're counting down to
+                                    eventStartDate = new Date(eventStartTime).getTime();
+                                    eventEndDate = new Date(eventEndTime).getTime();
+                                    now = new Date().getTime();
+                                    eventEndDistance = eventEndDate - now;
+                                }
+    
+                                // Update the count down every 1 second
+                                var x = setInterval(function() {
+
+                                    // Get today's date and time
+                                    now = new Date().getTime();
+                                    eventEndDistance = eventEndDate - now;
+
+                                    while(eventEndDistance < 0){
+                                        eventInt += 1;
+                                        eventName = response.result.items[eventInt].summary;
+                                        eventDesc = response.result.items[eventInt].description;
+                                        eventStartTime = response.result.items[eventInt].start.dateTime;
+                                        eventEndTime = response.result.items[eventInt].end.dateTime;
+                                        // Set the date we're counting down to
+                                        eventStartDate = new Date(eventStartTime).getTime();
+                                        eventEndDate = new Date(eventEndTime).getTime();
+                                        now = new Date().getTime();
+                                        eventEndDistance = eventEndDate - now;
+                                    }
+                                    //console.log(eventEndDistance);
+                                    //console.log(eventName);
+                                        
+                                    // Find the distance between now and the count down date
+                                    var distance = eventStartDate - now;
+
+                                    // Time calculations for days, hours, minutes and seconds
+                                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                    
+
+                                    if(eventName.startsWith("[PRESENT]") || eventName.startsWith("[END]")){
+                                        document.getElementById("presentStatus").innerHTML = "LIVE NOW";
+                                        document.getElementById("presentDesc").innerHTML = eventDesc;
+                                        document.getElementById("presentTime").style.display = 'none';
+                                        document.getElementById("twitch-embed").style.display = 'block';
+                                        document.getElementById("yt-embed").style.display = 'none';
+                                    }
+                                    if(eventName.startsWith("[NEXT]")){
+                                        document.getElementById("presentStatus").innerHTML = "UP NEXT";
+                                        document.getElementById("presentDesc").innerHTML = eventDesc;
+                                        document.getElementById("presentTime").style.display = 'none';
+                                        document.getElementById("twitch-embed").style.display = 'block';
+                                        document.getElementById("yt-embed").style.display = 'none';
+                                    }
+                                    if(eventName.startsWith("[START]")){
+                                        document.getElementById("presentStatus").innerHTML = "";
+                                        document.getElementById("presentDesc").innerHTML = "";
+                                        document.getElementById("presentTime").style.display = 'block';
+                                        document.getElementById("twitch-embed").style.display = 'none';
+                                        document.getElementById("yt-embed").innerHTML = '<iframe width="100%" height="480" src="https://www.youtube.com/embed/LuZQ5JzrS30" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                                    }
+                                    
+                                    eventName = eventName.replace("[PRESENT] ", "");
+                                    eventName = eventName.replace("[NEXT] ", "");
+                                    eventName = eventName.replace("[START] ", "");
+                                    eventName = eventName.replace("[END] ", "");
+                                    document.getElementById("presentName").innerHTML = eventName;
+                                    document.getElementById("presentTime").innerHTML = "Fandom February starts again in " + days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+                                    if (distance < 0) {
+                                        document.getElementById("presentTime").innerHTML = "Fandom February stream will begin shortly. You may now join in Zoom if you are registered.";
+                                    }
+                                    
+                                    //document.getElementById("twitch-embed").style.display = 'none';
+                                        
+                                    
+                                    
+                                    // Output the result in an element with id="demo"
+                                    /*document.getElementById("countdown").innerHTML = "Next event: " + eventName + "<br>" + "starts in: " + days + "d " + hours + "h "
+                                    + minutes + "m " + seconds + "s ";*/
+                                    //document.getElementById("countdown").innerHTML = "Waiting for next week's schedule..."
+                                        
+                                    // If the count down is over, write some text 
+                                    /*if (distance < 0) {
+                                        clearInterval(x);
+                                        //document.getElementById("countdown").innerHTML = "Next event: " + eventName + "<br>" + "<b>EVENT ONGOING</b>";
+                                        //playbell();
+                                    }*/
+                                }, 1000);
+                            },
+                            function(err) { console.error("Execute error", err); });
+                    
+                    
+                }
+            </script>
     </head>
-    <body id="page-top">
+    <body id="page-top" onload="loadClient().then(execute)">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
             <div class="container px-5">
@@ -73,6 +216,23 @@
         </nav>
         <!-- Mashead header-->
         <header class="masthead" style="background-image:url('assets/img/bg1.jpg');">
+            <div class="container px-5 mb-5">
+                <h4 id="presentStatus"></h4>
+                <h1 style="font-weight: 700;" id="presentName"></h1>
+                <h5 id="presentDesc"></h5>
+                <h5 id="presentTime"></h5>
+                <div class="mt-4" id="twitch-embed"></div>
+                <div class="mt-4" id="yt-embed"></div>
+                <script src="https://embed.twitch.tv/embed/v1.js"></script>
+                <script type="text/javascript">
+                    new Twitch.Embed("twitch-embed", {
+                      width: "100%",
+                      height: 480,
+                      channel: "ToushinOrg",
+                      parent: ["fanfeb.toushin.moe", "toushin.moe"]
+                    });
+                  </script>
+            </div>
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6">
@@ -93,90 +253,138 @@
         <!-- Quote/testimonial aside-->
         <section id="topics" style="padding-top: 0rem;"">
         <div>
-        <aside class="text-center bg-gradient-primary-to-secondary">
-            <div class="container px-5">
-                <div class="row gx-5 justify-content-center">
-                    <div class="col-xl-8">
-                        <div class="h2 fs-1 text-white">OUR TOPICS & SPEAKERS</div>
+            <aside class="text-center bg-gradient-primary-to-secondary">
+                <div class="container px-5">
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-xl-8">
+                            <div class="h2 fs-1 text-white">OUR TOPICS & SPEAKERS</div>
+                        </div>
                     </div>
                 </div>
+            </aside>
+        </div>
+
+        <div style="padding-top: 0rem;">
+
+            <div class="text-center py-5">
+                <h2>WEEK 1</h2>
+                <h4>February 4, 2022</h4>
             </div>
-        </aside>
-    </div>
-        <!-- App features section-->
-        <div style="padding-top: 5rem;">
-            <div class="text-center">
+
+            <div class="text-center text-white present-bar" style="background-image:url('assets/img/tbg1-1.jpg'); padding: 20px;">
                 <h3 class="font-alt bold-text">The Wonderful Art of Josei Manga</h3>
                 <div class="text-center">
                     <h5 class="font-alt">Migzu</h5>
-                    <p class="text-muted mb-0">Independent Student</p>
+                    <p class="mb-0">Independent Student</p>
                     <br>
+                    <p class="mb-0">5:00 PM - 6:00 PM PHT</p>
+                    <p class="mb-0">0900 - 1000 UTC</p>
                 </div>
             </div>
-            <div class="text-center">
+
+            <div class="text-center text-white present-bar" style="background-image:url('assets/img/tbg1-2.jpg'); padding: 20px;">
                 <h3 class="font-alt bold-text">Fansubbing 101: Guide to a Lost Art</h3>
                 <div class="text-center">
                     <h5 class="font-alt">Madekuji Masamune</h5>
-                    <p class="text-muted mb-0">Subtitler and Subtitles QA • HoloResort Translations</p>
-                    <br>
+                    <p class="mb-0">Subtitler and Subtitles QA • HoloResort Translations</p>  
+                    <br>  
+                    <p class="mb-0">6:00 PM - 8:00 PM PHT</p>
+                    <p class="mb-0">1000 - 1200 UTC</p>
                 </div>
             </div>
-            <div class="text-center">
+
+            <div class="text-center py-5">
+                <h2>WEEK 2</h2>
+                <h4>February 11, 2022</h4>
+            </div>
+
+            <div class="text-center text-white present-bar" style="background-image:url('assets/img/bg1.jpg'); padding: 20px;">
                 <h3 class="font-alt bold-text">Sis RPG - The Insane JRPG Series That Got the World Screaming Through Default Game Assets</h3>
                 <div class="text-center">
                     <h5 class="font-alt">ChairGTables</h5>
-                    <p class="text-muted mb-0">Game Developer • LAME Dimension</p>
+                    <p class="mb-0">Game Developer • LAME Dimension</p>
                     <br>
+                    <p class="mb-0">5:00 PM - 6:00 PM PHT</p>
+                    <p class="mb-0">0900 - 1000 UTC</p>
                 </div>
             </div>
-            <div class="text-center">
+
+            <div class="text-center text-white present-bar" style="background-image:url('assets/img/bg1.jpg'); padding: 20px;">
                 <h3 class="font-alt bold-text">How the Anime Community Has Changed</h3>
                 <div class="text-center">
                     <h5 class="font-alt">Jay Agonoy</h5>
-                    <p class="text-muted mb-0">Writer • Anime Corner</p>
+                    <p class="mb-0">Writer • Anime Corner</p>
                     <br>
+                    <p class="mb-0">6:00 PM - 7:00 PM PHT</p>
+                    <p class="mb-0">1000 - 1100 UTC</p>
                 </div>
             </div>
-            <div class="text-center">
+            
+            <div class="text-center text-white present-bar" style="background-image:url('assets/img/bg1.jpg'); padding: 20px;">
                 <h3 class="font-alt bold-text">Parasocial Relationships with Idols and VTubers</h3>
                 <div class="text-center">
                     <h5 class="font-alt">Terumi Koizumi</h5>
-                    <p class="text-muted mb-0">Independent VTuber</p>
+                    <p class="mb-0">Independent VTuber</p>
                     <br>
+                    <p class="mb-0">7:00 PM - 8:00 PM PHT</p>
+                    <p class="mb-0">1100 - 1200 PM UTC</p>
                 </div>
             </div>
-            <div class="text-center">
+
+            <div class="text-center py-5">
+                <h2>WEEK 3</h2>
+                <h4>February 18, 2022</h4>
+            </div>
+
+            <div class="text-center text-white present-bar" style="background-image:url('assets/img/bg1.jpg'); padding: 20px;">
                 <h3 class="font-alt bold-text">Japanese Fan Cultures: Otaku to Fujoshi</h3>
                 <div class="text-center">
                     <h5 class="font-alt">Kristine Michelle Santos</h5>
-                    <p class="text-muted mb-0">Assistant Professor • Ateneo Japanese Studies Program</p>
+                    <p class="mb-0">Assistant Professor • Ateneo Japanese Studies Program</p>
                     <br>
+                    <p class="mb-0">5:00 PM - 6:00 PM PHT</p>
+                    <p class="mb-0">0900 - 1000 UTC</p>
                 </div>
             </div>
-            <div class="text-center">
+
+            <div class="text-center text-white present-bar" style="background-image:url('assets/img/bg1.jpg'); padding: 20px;">
                 <h3 class="font-alt bold-text">Can't seem to use Live2D? Try AnimeEffects! : A Workshop by a No-Budget Artist</h3>
                 <div class="text-center">
                     <h5 class="font-alt">Cliesel</h5>
-                    <p class="text-muted mb-0">Independent Freelance Student-Artist</p>
-                    <br>
+                    <p class="mb-0">Independent Freelance Student-Artist</p>
+                    <br>  
+                    <p class="mb-0">6:00 PM - 8:00 PM PHT</p>
+                    <p class="mb-0">1000 - 1200 UTC</p>
                 </div>
             </div>
-            <div class="text-center">
+
+            <div class="text-center py-5">
+                <h2>WEEK 4</h2>
+                <h4>February 25, 2022</h4>
+            </div>
+
+            <div class="text-center text-white present-bar" style="background-image:url('assets/img/bg1.jpg'); padding: 20px;">
                 <h3 class="font-alt bold-text">Analyzing Comedy with Anime and Manga's Best</h3>
                 <div class="text-center">
                     <h5 class="font-alt">Ivan Sison</h5>
-                    <p class="text-muted mb-0">Student • Ateneo de Manila University</p>
+                    <p class="mb-0">Student • Ateneo de Manila University</p>
                     <br>
+                    <p class="mb-0">6:00 PM - 7:00 PM PHT</p>
+                    <p class="mb-0">1000 - 1100 UTC</p>
                 </div>
             </div>
-            <div class="text-center">
+
+            <div class="text-center text-white present-bar" style="background-image:url('assets/img/bg1.jpg'); padding: 20px;">
                 <h3 class="font-alt bold-text">The History of Rhythm Games</h3>
                 <div class="text-center">
                     <h5 class="font-alt">Yanna Chanco</h5>
-                    <p class="text-muted mb-0">Student • Ateneo Senior High School</p>
+                    <p class="mb-0">Student • Ateneo Senior High School</p>
                     <br>
+                    <p class="mb-0">7:00 PM - 8:00 PM PHT</p>
+                    <p class="mb-0">1100 - 1200 UTC</p>
                 </div>
             </div>
+
         </div>
         </section>
         <!-- Basic features section-->
@@ -205,6 +413,22 @@
             </div>
         </section>
         <!-- App badge section-->
+
+        <div>
+            <aside class="text-center">
+                <div class="container px-5">
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-xl-8">
+                            <div class="h2 fs-1">Media Partners</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- logos go here -->
+                <img src="bestLogo.png" alt="Media Partner Logos" height="100px">
+                <img src="bestLogo.png" alt="Media Partner Logos" height="100px">
+                <img src="bestLogo.png" alt="Media Partner Logos" height="100px">
+            </aside>
+        </div>
 
         <!-- Footer-->
         <footer class="bg-black text-center py-5">
