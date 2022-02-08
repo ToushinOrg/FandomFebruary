@@ -11420,6 +11420,7 @@ section.cta {
   padding: 15rem 0;
   background-position: center;
   background-size: cover;
+  background-attachment: fixed;
 }
 section.cta .cta-content {
   position: relative;
@@ -11547,6 +11548,12 @@ footer a:hover, footer a:active, footer a:focus {
   text-decoration: underline;
 }
 
+.present-bar {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .masthead {
   color:white;
   padding-top: 9.5rem;
@@ -11556,6 +11563,7 @@ footer a:hover, footer a:active, footer a:focus {
         background-size: cover;
         background-position: center;
 }
+
 .masthead .masthead-device-mockup {
   display: flex;
   align-items: center;
