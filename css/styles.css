@@ -500,7 +500,7 @@ progress {
 
 
 .display-1 {
-  font-size: calc(1.625rem + 4.5vw);
+  font-size: calc(1.5rem + 4.5vw);
   font-weight: 700;
   line-height: 1.2;
 }
@@ -11654,6 +11654,15 @@ footer a:hover, footer a:active, footer a:focus {
   }
   .masthead .masthead-device-mockup .device-wrapper {
     max-width: 17rem;
+  }
+  #cta-linebreak {
+    display: none;
+  }
+}
+
+@media (min-width: 1830px) {
+  #logos-flex {
+    max-width: 1920px;
   }
 }
 
