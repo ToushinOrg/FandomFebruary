@@ -11611,6 +11611,9 @@ footer a:hover, footer a:active, footer a:focus {
   #logoImg {
     height: 1.3rem;
   }
+  #yt-embed {
+    height: 160px;
+  }
 }
 @media (min-width: 576px) {
   .masthead .masthead-device-mockup .circle {
@@ -11622,6 +11625,9 @@ footer a:hover, footer a:active, footer a:focus {
   }
   #logoImg {
     height: 2rem;
+  }
+  #yt-embed {
+    height: 250px;
   }
 }
 @media (min-width: 768px) {
@@ -11638,6 +11644,9 @@ footer a:hover, footer a:active, footer a:focus {
   }
   .masthead .masthead-device-mockup .device-wrapper {
     max-width: 15rem;
+  }
+  #yt-embed {
+    height: 352px;
   }
 }
 @media (min-width: 1200px) {
