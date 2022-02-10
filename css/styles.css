@@ -11656,6 +11656,9 @@ footer a:hover, footer a:active, footer a:focus {
   .masthead .masthead-device-mockup .device-wrapper {
     max-width: 15rem;
   }
+  #yt-embed {
+    height: 480px;
+  }
 }
 @media (min-width: 1400px) {
   .masthead .masthead-device-mockup .circle {
