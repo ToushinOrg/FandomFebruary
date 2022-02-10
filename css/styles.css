@@ -11660,6 +11660,12 @@ footer a:hover, footer a:active, footer a:focus {
   }
 }
 
+@media (min-width: 1830px) {
+  #logos-flex {
+    max-width: 1920px;
+  }
+}
+
 /* als custom unko */
 
 /* .bgContainer {
