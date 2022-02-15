@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.7/jstz.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
+        <script>
+            var x = setInterval(function() {
+
+                // Get today's date and time
+                var now = new Date();
+                var nowText = now.toLocaleTimeString()
+                document.getElementById("timeText").innerHTML = nowText;
+
+            }, 1000);
+        </script>
+    </head>
+    <body>
+        <center>
+            <h1 style="color:red; font-size: 10rem; font-family: 'PT Mono', monospace;" id="timeText"></h1>
+        </center>
+    </body>
+</html>
